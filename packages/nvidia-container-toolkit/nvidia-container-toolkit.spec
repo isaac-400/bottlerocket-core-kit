@@ -45,9 +45,12 @@ Conflicts: %{name}-ecs
 %{summary}.
 
 %package base
-Summary: Files for the NVIDIA Container Toolkit without nvidia-container-runtime-hook or nvidia-oci
+Summary: Files for the NVIDIA Container Toolkit without nvidia-container-runtime-hook or nvidia-oci.
 Requires: %{name}
 Conflicts: %{name}-ecs or %{name}-k8s
+
+%description base
+%{summary}
 
 %prep
 %autosetup -n %{gorepo}-%{gover} -p1
