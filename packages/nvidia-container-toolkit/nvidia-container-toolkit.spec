@@ -44,6 +44,11 @@ Conflicts: %{name}-ecs
 %description k8s
 %{summary}.
 
+%package base
+Summary: Files for the NVIDIA Container Toolkit without nvidia-container-runtime-hook or nvidia-oci
+Requires: %{name}
+Conflicts: %{name}-ecs or %{name}-k8s
+
 %prep
 %autosetup -n %{gorepo}-%{gover} -p1
 %cross_go_setup %{gorepo}-%{gover} %{goproject} %{goimport}
@@ -75,17 +80,24 @@ ln -s shimpei %{buildroot}%{_cross_bindir}/nvidia-oci
 %files
 %license LICENSE
 %{_cross_attribution_file}
-%{_cross_bindir}/nvidia-container-runtime-hook
 %{_cross_bindir}/nvidia-ctk
-%{_cross_bindir}/nvidia-oci
-%{_cross_templatedir}/nvidia-oci-hooks-json
 %{_cross_udevrulesdir}/90-nvidia-gpu-devices.rules
 
+%files base
+%{_cross_factorydir}/nvidia-container-runtime/nvidia-container-toolkit-config-base.toml
+%{_cross_tmpfilesdir}/nvidia-container-toolkit-base.conf
+
 %files ecs
+%{_cross_bindir}/nvidia-container-runtime-hook
 %{_cross_factorydir}/nvidia-container-runtime/nvidia-container-toolkit-config-ecs.toml
 %{_cross_tmpfilesdir}/nvidia-container-toolkit-ecs.conf
+%{_cross_bindir}/nvidia-oci
+%{_cross_templatedir}/nvidia-oci-hooks-json
 
 %files k8s
+%{_cross_bindir}/nvidia-container-runtime-hook
 %{_cross_factorydir}/nvidia-container-runtime/nvidia-container-toolkit-config-k8s.toml
 %{_cross_templatedir}/nvidia-container-runtime/nvidia-container-toolkit-config-k8s
 %{_cross_tmpfilesdir}/nvidia-container-toolkit-k8s.conf
+%{_cross_bindir}/nvidia-oci
+%{_cross_templatedir}/nvidia-oci-hooks-json
