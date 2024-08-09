@@ -57,6 +57,7 @@ Conflicts: %{name}-ecs or %{name}-k8s
 %cross_go_configure %{goimport}
 go build -ldflags="${GOLDFLAGS}" -o nvidia-container-runtime-hook ./cmd/nvidia-container-runtime-hook
 go build -ldflags="${GOLDFLAGS}" -o nvidia-ctk ./cmd/nvidia-ctk
+go build -ldflags="${GOLDFLAGS}" -o nvidia-cdi-hook ./cmd/nvidia-cdi-hook
 
 %install
 install -d %{buildroot}%{_cross_bindir}
@@ -86,6 +87,7 @@ ln -s shimpei %{buildroot}%{_cross_bindir}/nvidia-oci
 %files base
 %{_cross_factorydir}/nvidia-container-runtime/nvidia-container-toolkit-config-base.toml
 %{_cross_tmpfilesdir}/nvidia-container-toolkit-base.conf
+%{_cross_bindir}/nvidia-cdi-hook
 
 %files ecs
 %{_cross_bindir}/nvidia-container-runtime-hook
